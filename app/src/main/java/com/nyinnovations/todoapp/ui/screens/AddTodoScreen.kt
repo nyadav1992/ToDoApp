@@ -22,8 +22,10 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.nyinnovations.todoapp.R
 import com.nyinnovations.todoapp.data.TODOItem
 import com.nyinnovations.todoapp.ui.viewmodel.TODOListViewModel
 import kotlinx.coroutines.delay
@@ -45,7 +47,7 @@ fun AddTodoScreen(navController: NavController, todoViewModel: TODOListViewModel
         OutlinedTextField(
             value = text,
             onValueChange = { text = it },
-            label = { Text("Enter TODO item") },
+            label = { Text(stringResource(R.string.enter_todo_item)) },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -63,14 +65,14 @@ fun AddTodoScreen(navController: NavController, todoViewModel: TODOListViewModel
                 }
             }
         }) {
-            Text("Add TODO")
+            Text(stringResource(R.string.add_todo))
         }
 
         if (shouldLaunchEffect) {
             LaunchedEffect(Unit) {
-                    delay(3000)
-                    isLoading = false
-                    navController.popBackStack()
+                delay(3000)
+                isLoading = false
+                navController.popBackStack()
                 shouldLaunchEffect = false
             }
         }

@@ -1,4 +1,4 @@
-package com.nyinnovations.todoapp.ui
+package com.nyinnovations.todoapp.navigation
 
 sealed class Screen(val route: String) {
     data object Main : Screen("main")

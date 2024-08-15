@@ -35,9 +35,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.nyinnovations.todoapp.ui.Screen
+import com.nyinnovations.todoapp.R
+import com.nyinnovations.todoapp.navigation.Screen
 import com.nyinnovations.todoapp.ui.viewmodel.TODOListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,7 +76,7 @@ fun MainScreen(navController: NavController, todoViewModel: TODOListViewModel) {
                 OutlinedTextField(
                     value = query,
                     onValueChange = { todoViewModel.onSearchQueryChanged(it) },
-                    label = { Text("Search TODOs", color = Color.White.copy(alpha = 0.5f)) },
+                    label = { Text(stringResource(R.string.search_todos), color = Color.White.copy(alpha = 0.5f)) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color.Transparent),
@@ -88,7 +90,7 @@ fun MainScreen(navController: NavController, todoViewModel: TODOListViewModel) {
                     trailingIcon = {
                         Icon(
                             imageVector = Icons.Filled.Search,
-                            contentDescription = "Search",
+                            contentDescription = stringResource(R.string.search),
                             tint = Color.White
                         )
                     }
@@ -97,7 +99,7 @@ fun MainScreen(navController: NavController, todoViewModel: TODOListViewModel) {
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { navController.navigate(Screen.AddTodo.route) }) {
-                Icon(Icons.Filled.Add, contentDescription = "Add TODO")
+                Icon(Icons.Filled.Add, contentDescription = stringResource(R.string.add_todo))
             }
         },
         content = { paddingValues ->
@@ -109,7 +111,7 @@ fun MainScreen(navController: NavController, todoViewModel: TODOListViewModel) {
                 if (todoItems.isEmpty()) {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         Text(
-                            "Press the + button to add a TODO item",
+                            stringResource(R.string.press_the_button_to_add_a_todo_item),
                             style = MaterialTheme.typography.bodyLarge
                         )
                     }
@@ -143,11 +145,10 @@ fun MainScreen(navController: NavController, todoViewModel: TODOListViewModel) {
         }
     )
 
-    // Observe error event
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { setShowDialog(false) },
-            title = { Text(text = "Error") },
+            title = { Text(text = stringResource(R.string.error)) },
             text = { errorMessage?.let { Text(text = it) } },
             confirmButton = {
                 Button(
@@ -156,7 +157,7 @@ fun MainScreen(navController: NavController, todoViewModel: TODOListViewModel) {
                         todoViewModel.clearErrorMessage() // Clear the error message after showing the dialog
                     }
                 ) {
-                    Text("OK")
+                    Text(stringResource(R.string.ok))
                 }
             }
         )

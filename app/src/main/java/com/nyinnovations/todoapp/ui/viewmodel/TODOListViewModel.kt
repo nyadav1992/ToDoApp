@@ -16,6 +16,7 @@ class TODOListViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _todoItems = MutableStateFlow<List<TODOItem>>(emptyList())
+    val todoItems: StateFlow<List<TODOItem>> = _todoItems
 
     private val _filteredTodoItems = MutableStateFlow<List<TODOItem>>(emptyList())
     val filteredTodoItems: StateFlow<List<TODOItem>> = _filteredTodoItems
@@ -28,10 +29,7 @@ class TODOListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            repository.getTODOs().collect { todos ->
-                _todoItems.value = todos
-                filterTodos()
-            }
+            getAllToDos()
         }
     }
 
@@ -52,10 +50,14 @@ class TODOListViewModel @Inject constructor(
     fun addTODO(todoItem: TODOItem) {
         viewModelScope.launch {
             repository.addTODO(todoItem)
-            repository.getTODOs().collect { todos ->
-                _todoItems.value = todos
-                filterTodos()
-            }
+            getAllToDos()
+        }
+    }
+
+    private suspend fun getAllToDos() {
+        repository.getTODOs().collect { todos ->
+            _todoItems.value = todos
+            filterTodos()
         }
     }
 

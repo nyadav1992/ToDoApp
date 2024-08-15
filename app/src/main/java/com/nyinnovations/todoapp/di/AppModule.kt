@@ -2,6 +2,7 @@ package com.nyinnovations.todoapp.di
 
 import android.content.Context
 import androidx.room.Room
+import com.nyinnovations.todoapp.R
 import com.nyinnovations.todoapp.data.TODODao
 import com.nyinnovations.todoapp.database.TODODatabase
 import dagger.Module
@@ -21,7 +22,7 @@ object AppModule {
         return Room.databaseBuilder(
             appContext,
             TODODatabase::class.java,
-            "todo_database"
+            appContext.getString(R.string.todo_database)
         ).build()
     }
 
