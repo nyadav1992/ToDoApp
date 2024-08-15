@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ToDo App</string>
+    <string name="add_todo_title">Edit</string>
     <string name="todo_database">todo_database</string>
     <string name="search">Search</string>
     <string name="add_todo">Add TODO</string>
@@ -9,4 +10,5 @@
     <string name="enter_todo_item">Enter TODO item</string>
     <string name="delete">delete</string>
     <string name="search_todos">Search TODOs</string>
+    <string name="back">back\n</string>
 </resources>
