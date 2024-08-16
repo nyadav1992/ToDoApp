@@ -2,13 +2,10 @@ package com.nyinnovations.todoapp.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -73,20 +70,27 @@ fun AddTodoScreen(navController: NavController, todoViewModel: TODOListViewModel
             value = text,
             onValueChange = { text = it },
             label = { Text(stringResource(R.string.enter_todo_item)) },
-            modifier = Modifier.fillMaxWidth().padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
         )
 
         Spacer(modifier = Modifier.height(18.dp))
 
         Button(onClick = {
             if (text.isNotBlank()) {
-                if (text.equals("Error", ignoreCase = true)) {  // Use equals method with ignoreCase
-                    todoViewModel.setErrorMessage("Failed to add TODO")
-                    navController.popBackStack()
-                } else {
-                    isLoading = true
-                    todoViewModel.addTODO(TODOItem(title = text))
-                    shouldLaunchEffect = true
+                try {
+                    if (text.equals("Error", ignoreCase = true)) {
+                        todoViewModel.setErrorMessage("Failed to add TODO")
+                        navController.popBackStack()
+                    } else {
+                        isLoading = true
+                        todoViewModel.addTODO(TODOItem(title = text))
+                        shouldLaunchEffect = true
+                    }
+                } catch (e: Exception) {
+                    todoViewModel.setErrorMessage("An error occurred: ${e.message}")
+                    isLoading = false
                 }
             }
         }) {

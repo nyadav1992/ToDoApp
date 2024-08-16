@@ -29,7 +29,11 @@ class TODOListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            getAllToDos()
+            try {
+                getAllToDos()
+            } catch (e: Exception) {
+                setErrorMessage("Failed to load TODO items: ${e.message}")
+            }
         }
     }
 
@@ -49,15 +53,23 @@ class TODOListViewModel @Inject constructor(
 
     fun addTODO(todoItem: TODOItem) {
         viewModelScope.launch {
-            repository.addTODO(todoItem)
-            getAllToDos()
+            try {
+                repository.addTODO(todoItem)
+                getAllToDos()
+            } catch (e: Exception) {
+                setErrorMessage("Failed to add TODO item: ${e.message}")
+            }
         }
     }
 
     private suspend fun getAllToDos() {
-        repository.getTODOs().collect { todos ->
-            _todoItems.value = todos
-            filterTodos()
+        try {
+            repository.getTODOs().collect { todos ->
+                _todoItems.value = todos
+                filterTodos()
+            }
+        } catch (e: Exception) {
+            setErrorMessage("Failed to fetch TODO items: ${e.message}")
         }
     }
 
