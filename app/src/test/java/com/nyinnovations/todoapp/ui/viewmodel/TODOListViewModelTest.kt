@@ -2,8 +2,8 @@ package com.nyinnovations.todoapp.ui.viewmodel
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.nyinnovations.todoapp.data.TODOItem
-import com.nyinnovations.todoapp.data.repo.TODORepository
+import com.nyinnovations.todo_datasource.data.TODOItem
+import com.nyinnovations.todo_datasource.data.repo.TODORepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job

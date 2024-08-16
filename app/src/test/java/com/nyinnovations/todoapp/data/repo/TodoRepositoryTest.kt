@@ -1,7 +1,8 @@
 package com.nyinnovations.todoapp.data.repo
 
-import com.nyinnovations.todoapp.data.TODODao
-import com.nyinnovations.todoapp.data.TODOItem
+import com.nyinnovations.todo_datasource.data.TODODao
+import com.nyinnovations.todo_datasource.data.TODOItem
+import com.nyinnovations.todo_datasource.data.repo.TODORepository
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
