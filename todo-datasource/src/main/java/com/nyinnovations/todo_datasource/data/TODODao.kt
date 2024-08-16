@@ -1,6 +1,7 @@
 package com.nyinnovations.todo_datasource.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -15,5 +16,8 @@ interface TODODao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTODO(todoItem: TODOItem)
+
+    @Delete
+    suspend fun deleteTODO(todoItem: TODOItem)
 
 }

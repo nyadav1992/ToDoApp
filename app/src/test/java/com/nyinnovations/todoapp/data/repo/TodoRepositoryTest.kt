@@ -46,4 +46,13 @@ class TodoRepositoryTest {
         verify(todoDao).insertTODO(todoItem)
     }
 
+    @Test
+    fun deleteTodoItem_insertsItemIntoDatabase() = runTest {
+        val todoItem = TODOItem(1, "Test 1")
+
+        repository.deleteTODO(todoItem)
+
+        verify(todoDao).deleteTODO(todoItem)
+    }
+
 }

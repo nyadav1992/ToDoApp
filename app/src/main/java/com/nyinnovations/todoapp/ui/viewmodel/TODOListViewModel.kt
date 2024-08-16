@@ -80,4 +80,15 @@ class TODOListViewModel @Inject constructor(
     fun clearErrorMessage() {
         _errorMessage.value = null
     }
+
+    fun deleteTodoItem(todoItem: TODOItem) {
+        viewModelScope.launch {
+            try {
+                repository.deleteTODO(todoItem)
+                getAllToDos()
+            } catch (e: Exception) {
+                setErrorMessage("Failed to add TODO item: ${e.message}")
+            }
+        }
+    }
 }

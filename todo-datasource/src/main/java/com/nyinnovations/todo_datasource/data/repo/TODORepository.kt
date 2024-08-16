@@ -14,4 +14,8 @@ class TODORepository @Inject constructor(private val dao: TODODao) {
     suspend fun addTODO(todoItem: TODOItem) {
         dao.insertTODO(todoItem)
     }
+
+    suspend fun deleteTODO(todoItem: TODOItem) {
+        dao.deleteTODO(todoItem)
+    }
 }

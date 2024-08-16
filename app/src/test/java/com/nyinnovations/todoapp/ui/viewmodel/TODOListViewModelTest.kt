@@ -6,11 +6,8 @@ import com.nyinnovations.todo_datasource.data.TODOItem
 import com.nyinnovations.todo_datasource.data.repo.TODORepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
@@ -37,7 +34,6 @@ class TODOListViewModelTest {
     private lateinit var repository: TODORepository
 
     private lateinit var viewModel: TODOListViewModel
-    private lateinit var testScope: TestScope
 
     @OptIn(ExperimentalCoroutinesApi::class)
     private val testDispatcher = UnconfinedTestDispatcher()
@@ -47,7 +43,6 @@ class TODOListViewModelTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         repository = mock(TODORepository::class.java)
-        testScope = TestScope(testDispatcher + Job())
         `when`(repository.getTODOs()).thenReturn(flowOf(emptyList()))
         viewModel = TODOListViewModel(repository)
     }
@@ -55,12 +50,11 @@ class TODOListViewModelTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun tearDown() {
-        testScope.cancel()
         Dispatchers.resetMain() // Reset the main dispatcher to the original Main dispatcher
     }
 
     @Test
-    fun `init should load TODO items`() = testScope.runTest {
+    fun `init should load TODO items`() = runTest {
         val todos = listOf(TODOItem(1, "Task 1"), TODOItem(2, "Task 2"))
         `when`(repository.getTODOs()).thenReturn(flow { emit(todos) })
 
@@ -71,7 +65,7 @@ class TODOListViewModelTest {
     }
 
     @Test
-    fun `onSearchQueryChanged should filter TODO items`() = testScope.runTest {
+    fun `onSearchQueryChanged should filter TODO items`() = runTest {
         val todos = listOf(TODOItem(1, "Buy milk"), TODOItem(2, "Walk the dog"))
         `when`(repository.getTODOs()).thenReturn(flow { emit(todos) })
 
@@ -83,7 +77,7 @@ class TODOListViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `addTODO should add item and refresh list`() = testScope.runTest {
+    fun `addTODO should add item and refresh list`() = runTest {
         // Prepare initial TODO items
         val initialTodos = listOf(TODOItem(1, "Task 1"), TODOItem(2, "Task 2"))
         val newTodoItem = TODOItem(3, "New Task")
@@ -107,6 +101,23 @@ class TODOListViewModelTest {
         assertEquals(updatedTodos, viewModel.todoItems.value)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @Test
+    fun `deleteTodoItem should delete item and refresh list`() = runTest {
+        val initialTodos = listOf(TODOItem(1, "Task 1"), TODOItem(2, "Task 2"))
+        val itemToDelete = TODOItem(1, "Task 1")
+        val updatedTodos = listOf(TODOItem(2, "Task 2"))
+
+        `when`(repository.getTODOs()).thenReturn(flowOf(initialTodos), flowOf(updatedTodos))
+
+        viewModel = TODOListViewModel(repository)
+
+        viewModel.deleteTodoItem(itemToDelete)
+        advanceUntilIdle()
+
+        verify(repository).deleteTODO(itemToDelete)
+        assertEquals(updatedTodos, viewModel.todoItems.value)
+    }
 
     @Test
     fun `setErrorMessage should update errorMessage`() {
