@@ -69,6 +69,7 @@ fun AddTodoScreen(navController: NavController, todoViewModel: TODOListViewModel
         OutlinedTextField(
             value = text,
             onValueChange = { text = it },
+            singleLine = true,
             label = { Text(stringResource(R.string.enter_todo_item)) },
             modifier = Modifier
                 .fillMaxWidth()

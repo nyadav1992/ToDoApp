@@ -77,6 +77,7 @@ fun MainScreen(navController: NavController, todoViewModel: TODOListViewModel) {
                 // Search bar below the toolbar
                 OutlinedTextField(
                     value = query,
+                    singleLine = true,
                     onValueChange = { todoViewModel.onSearchQueryChanged(it) },
                     label = {
                         Text(
