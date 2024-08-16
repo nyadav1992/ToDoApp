@@ -1,10 +1,10 @@
-package com.nyinnovations.todoapp.di
+package com.nyinnovations.todo_datasource.di
 
 import android.content.Context
 import androidx.room.Room
-import com.nyinnovations.todoapp.R
-import com.nyinnovations.todoapp.data.TODODao
-import com.nyinnovations.todoapp.database.TODODatabase
+import com.nyinnovations.todo_datasource.R
+import com.nyinnovations.todo_datasource.data.TODODao
+import com.nyinnovations.todo_datasource.database.TODODatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

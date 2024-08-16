@@ -1,4 +1,4 @@
-package com.nyinnovations.todoapp.data
+package com.nyinnovations.todo_datasource.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

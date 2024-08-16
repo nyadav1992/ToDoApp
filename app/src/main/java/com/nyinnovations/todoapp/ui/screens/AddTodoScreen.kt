@@ -31,8 +31,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.nyinnovations.todo_datasource.data.TODOItem
 import com.nyinnovations.todoapp.R
-import com.nyinnovations.todoapp.data.TODOItem
 import com.nyinnovations.todoapp.ui.viewmodel.TODOListViewModel
 import kotlinx.coroutines.delay
 

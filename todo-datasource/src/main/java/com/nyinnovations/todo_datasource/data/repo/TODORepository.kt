@@ -1,7 +1,7 @@
-package com.nyinnovations.todoapp.data.repo
+package com.nyinnovations.todo_datasource.data.repo
 
-import com.nyinnovations.todoapp.data.TODODao
-import com.nyinnovations.todoapp.data.TODOItem
+import com.nyinnovations.todo_datasource.data.TODODao
+import com.nyinnovations.todo_datasource.data.TODOItem
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

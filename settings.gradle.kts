@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "ToDo App"
 include(":app")
+include(":todo-datasource")

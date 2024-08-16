@@ -1,9 +1,9 @@
-package com.nyinnovations.todoapp.database
+package com.nyinnovations.todo_datasource.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.nyinnovations.todoapp.data.TODODao
-import com.nyinnovations.todoapp.data.TODOItem
+import com.nyinnovations.todo_datasource.data.TODODao
+import com.nyinnovations.todo_datasource.data.TODOItem
 
 @Database(entities = [TODOItem::class], version = 1)
 abstract class TODODatabase : RoomDatabase() {

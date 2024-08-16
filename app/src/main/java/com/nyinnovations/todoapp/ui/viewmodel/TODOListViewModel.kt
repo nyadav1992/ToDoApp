@@ -2,8 +2,8 @@ package com.nyinnovations.todoapp.ui.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nyinnovations.todoapp.data.TODOItem
-import com.nyinnovations.todoapp.data.repo.TODORepository
+import com.nyinnovations.todo_datasource.data.TODOItem
+import com.nyinnovations.todo_datasource.data.repo.TODORepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
